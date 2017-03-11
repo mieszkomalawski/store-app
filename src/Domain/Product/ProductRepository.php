@@ -17,4 +17,9 @@ interface ProductRepository
      * @return Product[]
      */
     public function getProducts(): array;
+
+    /**
+     * @param Product $product
+     */
+    public function addProduct(Product $product): void;
 }

@@ -9,7 +9,6 @@
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
 
-use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Routing\Loader\YamlFileLoader;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -27,6 +26,7 @@ $conn = [
     'user' => 'dev',
     'password' => 'dev',
     // patrz config dockera
+
     'host' => 'db',
     'driver' => 'pdo_mysql',
 ];
@@ -35,7 +35,7 @@ $conn = [
 $entityManager = EntityManager::create($conn, $config);
 
 //routing
-$locator = new FileLocator([__DIR__ . '/../config/routing']);
+$locator = new \Doctrine\Common\Persistence\Mapping\Driver\SymfonyFileLocator([__DIR__ . '/../config/routing']);
 
 $requestContext = new \Symfony\Component\Routing\RequestContext();
 $requestContext->fromRequest(Request::createFromGlobals());

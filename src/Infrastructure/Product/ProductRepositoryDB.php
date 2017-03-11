@@ -17,11 +17,17 @@ class ProductRepositoryDB implements ProductRepository
     private $ormRepo;
 
     /**
+     * @var EntityManager
+     */
+    private $entityManager;
+
+    /**
      * ProductRepositoryDB constructor.
      * @param EntityManager $entityManager
      */
     public function __construct(EntityManager $entityManager)
     {
+        $this->entityManager = $entityManager;
         $this->ormRepo = $entityManager->getRepository('StoreApp\Domain\Product\Product');
     }
 
@@ -42,6 +48,15 @@ class ProductRepositoryDB implements ProductRepository
     public function getProducts(): array
     {
         return $this->ormRepo->findAll();
+    }
+
+    /**
+     * @param Product $product
+     * @throws \Doctrine\ORM\ORMInvalidArgumentException
+     */
+    public function addProduct(Product $product): void
+    {
+        $this->entityManager->persist($product);
     }
 
 }
