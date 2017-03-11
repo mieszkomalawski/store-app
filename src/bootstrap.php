@@ -5,9 +5,6 @@
  * Date: 05/02/2017
  * Time: 18:30
  */
-// bootstrap.php
-use Doctrine\ORM\Tools\Setup;
-use Doctrine\ORM\EntityManager;
 
 use Symfony\Component\Routing\Loader\YamlFileLoader;
 
@@ -15,24 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 require_once __DIR__ . "/../vendor/autoload.php";
 
-// Create a simple "default" Doctrine ORM configuration for Annotations
-$isDevMode = true;
-// or if you prefer yaml or XML
-$config = Setup::createYAMLMetadataConfiguration([__DIR__ . "/../config"], $isDevMode);
-
-// database configuration parameters
-$conn = [
-    'dbname' => 'local',
-    'user' => 'dev',
-    'password' => 'dev',
-    // patrz config dockera
-
-    'host' => 'db',
-    'driver' => 'pdo_mysql',
-];
-
-// obtaining the entity manager
-$entityManager = EntityManager::create($conn, $config);
+$entityManager = \StoreApp\Infrastructure\EntityManagerFactory::getEntityManager();
 
 //routing
 $locator = new \Doctrine\Common\Persistence\Mapping\Driver\SymfonyFileLocator([__DIR__ . '/../config/routing']);

@@ -16,6 +16,15 @@ class CreateProduct
     private $productRepository;
 
     /**
+     * CreateProduct constructor.
+     * @param ProductRepository $productRepository
+     */
+    public function __construct(ProductRepository $productRepository)
+    {
+        $this->productRepository = $productRepository;
+    }
+
+    /**
      * @param CreateProductRequest $createProductRequest
      * @return CreateProductResponse
      */
