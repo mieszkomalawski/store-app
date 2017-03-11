@@ -27,6 +27,7 @@ class CreateProductCommand extends Command
      */
     public function __construct(EntityManager $entityManager)
     {
+        parent::__construct();
         $this->entityManager = $entityManager;
     }
 

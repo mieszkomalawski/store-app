@@ -15,7 +15,7 @@ require_once __DIR__ . "/../vendor/autoload.php";
 $entityManager = \StoreApp\Infrastructure\EntityManagerFactory::getEntityManager();
 
 //routing
-$locator = new \Doctrine\Common\Persistence\Mapping\Driver\SymfonyFileLocator([__DIR__ . '/../config/routing']);
+/*$locator = new \Doctrine\Common\Persistence\Mapping\Driver\SymfonyFileLocator([__DIR__ . '/../config/routing']);
 
 $requestContext = new \Symfony\Component\Routing\RequestContext();
 $requestContext->fromRequest(Request::createFromGlobals());
@@ -27,4 +27,4 @@ $router = new \Symfony\Component\Routing\Router(
     $requestContext
 );
 var_dump($requestContext->getPathInfo());die();
-$match = $router->match($requestContext->getPathInfo());
+$match = $router->match($requestContext->getPathInfo());*/
