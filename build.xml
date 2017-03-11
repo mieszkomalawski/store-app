@@ -1,0 +1,7 @@
+<project name="StoreApp" default="hello">
+    <target name="hello">
+        <echo>Setting up docker containers: nginx, php-fpm, mysql</echo>
+        <exec command="sh docker-local.sh &amp;" dir="./resources" />
+        <echo>docker done</echo>
+    </target>
+</project>
