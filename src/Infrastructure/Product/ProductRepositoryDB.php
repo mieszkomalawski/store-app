@@ -57,6 +57,7 @@ class ProductRepositoryDB implements ProductRepository
     public function addProduct(Product $product): void
     {
         $this->entityManager->persist($product);
+        $this->entityManager->flush($product);
     }
 
 }
