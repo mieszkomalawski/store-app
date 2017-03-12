@@ -53,6 +53,7 @@ class ProductRepositoryDB implements ProductRepository
     /**
      * @param Product $product
      * @throws \Doctrine\ORM\ORMInvalidArgumentException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function addProduct(Product $product): void
     {
