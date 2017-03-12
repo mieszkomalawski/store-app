@@ -1,7 +1,15 @@
-<project name="StoreApp" default="hello">
-    <target name="hello">
+<project name="StoreApp" default="docker-local">
+    <target name="docker-local">
         <echo>Setting up docker containers: nginx, php-fpm, mysql</echo>
-        <exec command="sh docker-local.sh &amp;" dir="./resources" />
-        <echo>docker done</echo>
+        <exec command="sh docker-local.sh" dir="./resources" />
+        <echo>docker is up</echo>
+        <echo>Wait 40 seconds for db</echo>
+        <exec command="sleep 40" />
+        <echo>Setting up db on container</echo>
+        <exec command="docker exec -it resources_php_1 vendor/bin/doctrine orm:schema-tool:update --force" />
+    </target>
+    <target name="local">
+        <echo>Setting up db </echo>
+        <exec command="vendor/bin/doctrine orm:schema-tool:update --force" />
     </target>
 </project>
