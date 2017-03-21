@@ -30,7 +30,7 @@ class ProjectUrlMatcher extends Symfony\Component\Routing\Matcher\UrlMatcher
         if (0 === strpos($pathinfo, '/foo')) {
             // route1
             if ($pathinfo === '/foo') {
-                return array (  'class' => '\\StoreApp\\Application\\Api\\ProductController',  'method' => 'createProduct',  '_route' => 'route1',);
+                return array (  'service' => 'create_product_controller',  'method' => 'createProduct',  '_route' => 'route1',);
             }
 
             // route2
