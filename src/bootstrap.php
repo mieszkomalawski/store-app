@@ -7,6 +7,8 @@
  */
 
 use StoreApp\Infrastructure\EntityManagerFactory;
+use StoreApp\Infrastructure\Product\ProductRepositoryDB;
+use StoreApp\UseCase\CreateProduct\CreateProduct;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Routing\Loader\YamlFileLoader;
 
@@ -22,7 +24,8 @@ $entityManager = EntityManagerFactory::getEntityManager();
 $locator = new FileLocator([__DIR__ . '/../config/routing']);
 
 $requestContext = new RequestContext();
-$requestContext->fromRequest(Request::createFromGlobals());
+$request = Request::createFromGlobals();
+$requestContext->fromRequest($request);
 
 $router = new Router(
     new YamlFileLoader($locator),
@@ -31,4 +34,8 @@ $router = new Router(
     $requestContext
 );
 $match = $router->match($requestContext->getPathInfo());
-var_dump($match);die();
+
+$controller = new $match['class'](new CreateProduct(new ProductRepositoryDB($entityManager)));
+
+$method = $match['method'];
+echo $controller->$method();

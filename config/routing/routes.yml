@@ -1,6 +1,9 @@
 route1:
     path:     /foo
-    defaults: { _controller: 'MyController::fooAction' }
+    defaults: {
+      class: '\StoreApp\Application\Api\ProductController',
+      method: 'createProduct'
+      }
 
 route2:
     path:     /foo/bar
