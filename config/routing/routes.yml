@@ -1,5 +1,5 @@
 route1:
-    path:     /foo
+    path:     /product
     defaults: {
       service: 'create_product_controller',
       method: 'createProduct'

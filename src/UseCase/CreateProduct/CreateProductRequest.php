@@ -22,7 +22,7 @@ class CreateProductRequest
      * @param string $name
      * @param float $price
      */
-    public function __construct($name, $price)
+    public function __construct(string $name, float $price)
     {
         $this->name = $name;
         $this->price = $price;

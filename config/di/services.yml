@@ -1,16 +1,20 @@
 services:
+    request:
+        class: \Symfony\Component\HttpFoundation\Request
+        factory: ['\Symfony\Component\HttpFoundation\Request', 'createFromGlobals']
+
     entity_manager:
         class: \Doctrine\ORM\EntityManager
         factory: ['\StoreApp\Infrastructure\EntityManagerFactory', 'getEntityManager']
 
-    craate_product_repository_db:
+    create_product_repository_db:
         class: \StoreApp\Infrastructure\Product\ProductRepositoryDB
         arguments: ['@entity_manager']
 
     create_product_use_case:
         class: \StoreApp\UseCase\CreateProduct\CreateProduct
-        arguments: ['@craate_product_repository_db']
+        arguments: ['@create_product_repository_db']
 
     create_product_controller:
         class: \StoreApp\Application\Api\ProductController
-        arguments: ['@create_product_use_case']
+        arguments: ['@create_product_use_case', '@request']

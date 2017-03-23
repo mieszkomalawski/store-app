@@ -7,10 +7,17 @@
  */
 
 use Doctrine\ORM\EntityManager;
+use Interop\Http\ServerMiddleware\DelegateInterface;
+use Interop\Http\ServerMiddleware\MiddlewareInterface;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use StoreApp\Infrastructure\HttpMiddleware\JsonMiddleware;
 use StoreApp\Infrastructure\Product\ProductRepositoryDB;
 use StoreApp\UseCase\CreateProduct\CreateProduct;
+use Symfony\Bridge\PsrHttpMessage\Factory\HttpFoundationFactory;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Loader\YamlFileLoader;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -44,7 +51,42 @@ $router = new Router(
 );
 $match = $router->match($requestContext->getPathInfo());
 
+$psr7Factory = new \Symfony\Bridge\PsrHttpMessage\Factory\DiactorosFactory();
+$psrRequest = $psr7Factory->createRequest($request);
+
 $controller = $container->get($match['service']);
 
 $method = $match['method'];
-echo $controller->$method();
+
+$jsonMiddleware = new JsonMiddleware();
+$response = $jsonMiddleware->process($psrRequest, new class($controller, $method) implements DelegateInterface {
+
+    private $controller;
+    private $method;
+
+    /**
+     *  constructor.
+     * @param $controller
+     * @param $method
+     */
+    public function __construct($controller, $method)
+    {
+        $this->controller = $controller;
+        $this->method = $method;
+    }
+
+    /**
+     * @param ServerRequestInterface $request
+     * @return ResponseInterface
+     */
+    public function process(ServerRequestInterface $request) : ResponseInterface
+    {
+        $method = $this->method;
+        return $this->controller->$method($request);
+    }
+});
+
+$httpFoundationFactory = new HttpFoundationFactory();
+$symfonyResponse = $httpFoundationFactory->createResponse($response);
+
+$symfonyResponse->send();

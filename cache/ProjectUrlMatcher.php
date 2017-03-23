@@ -27,17 +27,14 @@ class ProjectUrlMatcher extends Symfony\Component\Routing\Matcher\UrlMatcher
         $context = $this->context;
         $request = $this->request;
 
-        if (0 === strpos($pathinfo, '/foo')) {
-            // route1
-            if ($pathinfo === '/foo') {
-                return array (  'service' => 'create_product_controller',  'method' => 'createProduct',  '_route' => 'route1',);
-            }
+        // route1
+        if ($pathinfo === '/product') {
+            return array (  'service' => 'create_product_controller',  'method' => 'createProduct',  '_route' => 'route1',);
+        }
 
-            // route2
-            if ($pathinfo === '/foo/bar') {
-                return array (  '_controller' => 'MyController::foobarAction',  '_route' => 'route2',);
-            }
-
+        // route2
+        if ($pathinfo === '/foo/bar') {
+            return array (  '_controller' => 'MyController::foobarAction',  '_route' => 'route2',);
         }
 
         throw 0 < count($allow) ? new MethodNotAllowedException(array_unique($allow)) : new ResourceNotFoundException();
