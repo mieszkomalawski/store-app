@@ -45,6 +45,8 @@ class ProductController
 
         $createProductResponse = $this->createProduct->execute($createProductRequest);
 
+        //@todo przekazywac transformer przez dependency injection
+        //@todo wydzielić transformacje do json jako middleware
         $resource = new Item($createProductResponse, function (CreateProductResponse $createProductResponse) {
             return [
                 'id' => $createProductResponse->getId(),
@@ -55,6 +57,6 @@ class ProductController
 
         $data = (new Manager())->createData($resource)->toJson();
 
-        return new Psr7Response(200, [], json_encode($data));
+        return new Psr7Response(200, [], $data);
     }
 }

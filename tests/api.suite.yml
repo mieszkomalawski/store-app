@@ -1,0 +1,8 @@
+class_name: ApiTester
+modules:
+    enabled:
+        - REST:
+        #co z innymi środowiskami ?
+            url: http://localhost:8080
+            depends: PhpBrowser
+            part: Json
