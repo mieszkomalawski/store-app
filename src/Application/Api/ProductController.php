@@ -3,22 +3,18 @@ namespace StoreApp\Application\Api;
 
 use GuzzleHttp\Psr7\Response as Psr7Response;
 use League\Fractal\Manager;
-use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\Item;
+use League\Fractal\TransformerAbstract;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use StoreApp\UseCase\CreateProduct\CreateProduct;
 use StoreApp\UseCase\CreateProduct\CreateProductRequest;
-use StoreApp\UseCase\CreateProduct\CreateProductResponse;
-use StoreApp\UseCase\SearchProduct\SearchProductRequest;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class ProductController
  * @package StoreApp\Application\Api
  */
-class ProductController
+class ProductController extends ApiController
 {
     /**
      * @var CreateProduct
@@ -26,12 +22,19 @@ class ProductController
     private $createProduct;
 
     /**
+     * @var TransformerAbstract
+     */
+    private $transformer;
+
+    /**
      * ProductController constructor.
      * @param CreateProduct $createProduct
+     * @param TransformerAbstract $tranformer
      */
-    public function __construct(CreateProduct $createProduct)
+    public function __construct(CreateProduct $createProduct, TransformerAbstract  $tranformer)
     {
         $this->createProduct = $createProduct;
+        $this->transformer = $tranformer;
     }
 
     /**
@@ -45,18 +48,9 @@ class ProductController
 
         $createProductResponse = $this->createProduct->execute($createProductRequest);
 
-        //@todo przekazywac transformer przez dependency injection
-        //@todo wydzielić transformacje do json jako middleware
-        $resource = new Item($createProductResponse, function (CreateProductResponse $createProductResponse) {
-            return [
-                'id' => $createProductResponse->getId(),
-                'name' => $createProductResponse->getName(),
-                'price' => $createProductResponse->getPrice()
-            ];
-        });
+        $resource = new Item($createProductResponse, $this->transformer);
 
-        $data = (new Manager())->createData($resource)->toJson();
-
-        return new Psr7Response(200, [], $data);
+        return $this->getResponse($resource, 200);
     }
+
 }

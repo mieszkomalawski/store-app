@@ -15,6 +15,9 @@ services:
         class: \StoreApp\UseCase\CreateProduct\CreateProduct
         arguments: ['@create_product_repository_db']
 
+    create_product_transformer:
+        class: \StoreApp\Infrastructure\Product\Presentation\CreateProductTransformer
+
     create_product_controller:
         class: \StoreApp\Application\Api\ProductController
-        arguments: ['@create_product_use_case', '@request']
+        arguments: ['@create_product_use_case', '@create_product_transformer']

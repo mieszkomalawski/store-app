@@ -6,3 +6,4 @@
 6. rozbić product repo na query i command
 7. przejść z auto-increment na mechanizm ręcznego generowanie id encji
 8. build za pomocą phing - DONE
+9. jak odpalić testy integracyjne z poziomu dockera ? 

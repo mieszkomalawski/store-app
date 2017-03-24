@@ -8,16 +8,12 @@
 
 use Doctrine\ORM\EntityManager;
 use Interop\Http\ServerMiddleware\DelegateInterface;
-use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use StoreApp\Infrastructure\HttpMiddleware\JsonMiddleware;
-use StoreApp\Infrastructure\Product\ProductRepositoryDB;
-use StoreApp\UseCase\CreateProduct\CreateProduct;
 use Symfony\Bridge\PsrHttpMessage\Factory\HttpFoundationFactory;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Loader\YamlFileLoader;
 
 use Symfony\Component\HttpFoundation\Request;
