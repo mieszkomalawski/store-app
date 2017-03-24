@@ -20,4 +20,6 @@ services:
 
     create_product_controller:
         class: \StoreApp\Application\Api\ProductController
-        arguments: ['@create_product_use_case', '@create_product_transformer']
+        arguments: ['@create_product_transformer']
+        calls:
+             - [setCreateProduct, ['@create_product_use_case']]

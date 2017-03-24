@@ -1,10 +1,7 @@
 <?php
 namespace StoreApp\Application\Api;
 
-use GuzzleHttp\Psr7\Response as Psr7Response;
-use League\Fractal\Manager;
 use League\Fractal\Resource\Item;
-use League\Fractal\TransformerAbstract;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use StoreApp\UseCase\CreateProduct\CreateProduct;
@@ -22,19 +19,11 @@ class ProductController extends ApiController
     private $createProduct;
 
     /**
-     * @var TransformerAbstract
-     */
-    private $transformer;
-
-    /**
-     * ProductController constructor.
      * @param CreateProduct $createProduct
-     * @param TransformerAbstract $tranformer
      */
-    public function __construct(CreateProduct $createProduct, TransformerAbstract  $tranformer)
+    public function setCreateProduct(CreateProduct $createProduct)
     {
         $this->createProduct = $createProduct;
-        $this->transformer = $tranformer;
     }
 
     /**
@@ -50,7 +39,7 @@ class ProductController extends ApiController
 
         $resource = new Item($createProductResponse, $this->transformer);
 
-        return $this->getResponse($resource, 200);
+        return $this->createResponse($resource, 200);
     }
 
 }
