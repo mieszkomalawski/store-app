@@ -28,4 +28,14 @@ class SearchProductResponse
     {
         $this->products[] = $singleSearchProductResponse;
     }
+
+    /**
+     * @return SingleSearchProductResponse[]
+     */
+    public function getProducts(): array
+    {
+        return $this->products;
+    }
+
+
 }

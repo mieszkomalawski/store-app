@@ -11,7 +11,7 @@ use StoreApp\UseCase\CreateProduct\CreateProductRequest;
  * Class ProductController
  * @package StoreApp\Application\Api
  */
-class ProductController extends ApiController
+class CreateProductController extends ApiController
 {
     /**
      * @var CreateProduct

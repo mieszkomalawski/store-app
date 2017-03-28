@@ -9,17 +9,30 @@ services:
 
     create_product_repository_db:
         class: \StoreApp\Infrastructure\Product\ProductRepositoryDB
-        arguments: ['@entity_manager']
+        autowire: true
 
     create_product_use_case:
         class: \StoreApp\UseCase\CreateProduct\CreateProduct
         arguments: ['@create_product_repository_db']
 
+    search_product_use_case:
+            class: \StoreApp\UseCase\SearchProduct\SearchProduct
+            arguments: ['@create_product_repository_db']
+
     create_product_transformer:
         class: \StoreApp\Infrastructure\Product\Presentation\CreateProductTransformer
 
+    search_product_transformer:
+            class: \StoreApp\Infrastructure\Product\Presentation\SearchProductTransformer
+
     create_product_controller:
-        class: \StoreApp\Application\Api\ProductController
+        class: \StoreApp\Application\Api\CreateProductController
         arguments: ['@create_product_transformer']
         calls:
              - [setCreateProduct, ['@create_product_use_case']]
+
+    search_product_controller:
+            class: \StoreApp\Application\Api\SearchProductController
+            arguments: ['@search_product_transformer']
+            calls:
+                 - [setSearchProduct, ['@search_product_use_case']]

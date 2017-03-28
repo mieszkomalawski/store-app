@@ -1,10 +1,15 @@
-route1:
+create_product:
     path:     /product
+    methods: [POST]
     defaults: {
       service: 'create_product_controller',
       method: 'createProduct'
       }
 
-route2:
-    path:     /foo/bar
-    defaults: { _controller: 'MyController::foobarAction' }
+search_product:
+    path:     /product
+    methods: [GET]
+    defaults: {
+      service: 'search_product_controller',
+      method: 'searchProduct'
+      }

@@ -23,8 +23,12 @@ services:
           dockerfile: php-fpm/Dockerfile
         volumes:
             - ../:/opt/project
+            - ../xdebug/xdebug.ini/:/usr/local/etc/php/conf.d/xdebug.ini
         networks:
             - code-network
+        environment:
+            XDEBUG_CONFIG: "remote_host=10.100.0.79"
+            PHP_IDE_CONFIG: "serverName=Test"
 
     web:
         image: nginx:latest

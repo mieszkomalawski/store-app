@@ -6,6 +6,8 @@
  * Time: 18:30
  */
 
+phpinfo();
+
 use Doctrine\ORM\EntityManager;
 use Interop\Http\ServerMiddleware\DelegateInterface;
 use Psr\Http\Message\ResponseInterface;

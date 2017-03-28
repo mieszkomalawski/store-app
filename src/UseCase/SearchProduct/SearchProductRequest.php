@@ -43,11 +43,11 @@ class SearchProductRequest
      * @param string $sortOrder
      */
     public function __construct(
-        string $name,
-        float $priceMin,
-        float $priceMax,
-        string $sortBy,
-        string $sortOrder)
+        string $name = null,
+        float $priceMin = null,
+        float $priceMax = null,
+        string $sortBy = null,
+        string $sortOrder = null)
     {
         $this->name = $name;
         $this->priceMin = $priceMin;

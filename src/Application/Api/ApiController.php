@@ -33,7 +33,6 @@ class ApiController
     protected function createResponse($resource, int $code): Psr7Response
     {
         $data = (new Manager())->createData($resource)->toJson();
-
         return new Psr7Response($code, [], $data);
     }
 }

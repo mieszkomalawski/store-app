@@ -6,3 +6,5 @@ modules:
             url: http://localhost:8080
             depends: PhpBrowser
             part: Json
+        #- Doctrine2:
+        #    connection_callback: ['\StoreApp\Infrastructure\EntityManagerFactory', 'getEntityManager']
