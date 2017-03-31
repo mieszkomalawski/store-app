@@ -6,8 +6,6 @@
  * Time: 18:30
  */
 
-phpinfo();
-
 use Doctrine\ORM\EntityManager;
 use Interop\Http\ServerMiddleware\DelegateInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -34,6 +32,7 @@ $loader->load('services.yml');
 /** @var EntityManager $entityManager */
 $entityManager = $container->get('entity_manager');
 
+$controller = $container->get('create_product_repository_db');
 //routing
 $locator = new FileLocator([__DIR__ . '/../config/routing']);
 

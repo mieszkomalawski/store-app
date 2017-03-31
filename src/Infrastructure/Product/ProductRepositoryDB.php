@@ -1,7 +1,7 @@
 <?php
 namespace StoreApp\Infrastructure\Product;
 
-use Doctrine\ORM\EntityManager;
+use \Doctrine\ORM\EntityManager;
 use StoreApp\Domain\Product\Product;
 use StoreApp\Domain\Product\ProductRepository;
 
