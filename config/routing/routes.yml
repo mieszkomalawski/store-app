@@ -2,14 +2,24 @@ create_product:
     path:     /product
     methods: [POST]
     defaults: {
-      service: 'create_product_controller',
-      method: 'createProduct'
+        service: 'create_product_controller',
+        method: 'createProduct'
       }
 
 search_product:
     path:     /product
     methods: [GET]
     defaults: {
-      service: 'search_product_controller',
-      method: 'searchProduct'
+        service: 'search_product_controller',
+        method: 'searchProduct',
+        format: 'json'
+      }
+
+index_page:
+    path: /
+    methods: [GET]
+    defaults: {
+        service: 'index_controller',
+        method: 'viewIndex',
+        format: 'html'
       }

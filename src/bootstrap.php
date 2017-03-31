@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityManager;
 use Interop\Http\ServerMiddleware\DelegateInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use StoreApp\Infrastructure\HttpMiddleware\HtmlMiddleware;
 use StoreApp\Infrastructure\HttpMiddleware\JsonMiddleware;
 use Symfony\Bridge\PsrHttpMessage\Factory\HttpFoundationFactory;
 use Symfony\Component\Config\FileLocator;
@@ -55,7 +56,8 @@ $controller = $container->get($match['service']);
 
 $method = $match['method'];
 
-$jsonMiddleware = new JsonMiddleware();
+$format = $match['format'];
+$jsonMiddleware = $format === 'json' ? new JsonMiddleware() : new HtmlMiddleware();
 $response = $jsonMiddleware->process($psrRequest, new class($controller, $method) implements DelegateInterface {
 
     private $controller;

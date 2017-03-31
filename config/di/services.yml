@@ -37,3 +37,6 @@ services:
             arguments: ['@search_product_transformer']
             calls:
                  - [setSearchProduct, ['@search_product_use_case']]
+
+    index_controller:
+        class: StoreApp\Application\Web\IndexController

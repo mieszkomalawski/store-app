@@ -46,11 +46,22 @@ class ProjectUrlMatcher extends Symfony\Component\Routing\Matcher\UrlMatcher
                     goto not_search_product;
                 }
 
-                return array (  'service' => 'search_product_controller',  'method' => 'searchProduct',  '_route' => 'search_product',);
+                return array (  'service' => 'search_product_controller',  'method' => 'searchProduct',  'format' => 'json',  '_route' => 'search_product',);
             }
             not_search_product:
 
         }
+
+        // index_page
+        if ($pathinfo === '/') {
+            if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                $allow = array_merge($allow, array('GET', 'HEAD'));
+                goto not_index_page;
+            }
+
+            return array (  'service' => 'index_controller',  'method' => 'viewIndex',  'format' => 'html',  '_route' => 'index_page',);
+        }
+        not_index_page:
 
         throw 0 < count($allow) ? new MethodNotAllowedException(array_unique($allow)) : new ResourceNotFoundException();
     }
