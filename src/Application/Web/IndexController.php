@@ -15,6 +15,6 @@ class IndexController
      */
     public function viewIndex() : ResponseInterface
     {
-        return new Response(200, [] , 'siema!');
+        return new Response(200, [] , file_get_contents(__DIR__ . '/../../../cra-test/build/index.html'));
     }
 }
