@@ -1,3 +1,4 @@
+1. React do roota dać ( konfig nginx )
 1. uporządkować bootstrap
 4. dodac metode dodania do koszyka z cli
 5. powtorzyć 3 i 4 ale przez REST api ( otwarte na razie)

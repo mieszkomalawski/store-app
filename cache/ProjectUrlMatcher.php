@@ -35,7 +35,7 @@ class ProjectUrlMatcher extends Symfony\Component\Routing\Matcher\UrlMatcher
                     goto not_create_product;
                 }
 
-                return array (  'service' => 'create_product_controller',  'method' => 'createProduct',  '_route' => 'create_product',);
+                return array (  'service' => 'create_product_controller',  'method' => 'createProduct',  'format' => 'json',  '_route' => 'create_product',);
             }
             not_create_product:
 

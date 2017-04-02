@@ -3,7 +3,8 @@ create_product:
     methods: [POST]
     defaults: {
         service: 'create_product_controller',
-        method: 'createProduct'
+        method: 'createProduct',
+        format: 'json'
       }
 
 search_product:

@@ -57,8 +57,8 @@ $controller = $container->get($match['service']);
 $method = $match['method'];
 
 $format = $match['format'];
-$jsonMiddleware = $format === 'json' ? new JsonMiddleware() : new HtmlMiddleware();
-$response = $jsonMiddleware->process($psrRequest, new class($controller, $method) implements DelegateInterface {
+$middleware = $format == 'json' ? new JsonMiddleware() : new HtmlMiddleware();
+$response = $middleware->process($psrRequest, new class($controller, $method) implements DelegateInterface {
 
     private $controller;
     private $method;

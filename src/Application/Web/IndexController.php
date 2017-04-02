@@ -15,6 +15,7 @@ class IndexController
      */
     public function viewIndex() : ResponseInterface
     {
-        return new Response(200, [] , file_get_contents(__DIR__ . '/../../../cra-test/build/index.html'));
+        //@todo zrobić to jakoś mądrzej
+        return new Response(200, [] , file_get_contents(__DIR__ . '/../../../web/web-app/build/index.html'));
     }
 }
