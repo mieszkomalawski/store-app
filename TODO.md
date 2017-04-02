@@ -1,4 +1,5 @@
-1. React do roota dać ( konfig nginx )
+- cache grinda wywalić do innego katalogu i konfig xdebug do resorces
+- wystawić logi z usług dockera do jakiegoś katalogu w resources
 1. uporządkować bootstrap
 4. dodac metode dodania do koszyka z cli
 5. powtorzyć 3 i 4 ale przez REST api ( otwarte na razie)
