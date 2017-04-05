@@ -13,6 +13,9 @@ services:
         MYSQL_USER: dev
         MYSQL_PASSWORD: dev
         MYSQL_DATABASE: local
+      volumes:
+          - ./mysql/my.cnf:/etc/mysql/my.cnf
+          - ./logs/mysql/:/var/log/mysql/
       networks:
         - code-network
 
@@ -24,6 +27,7 @@ services:
         volumes:
             - ../:/opt/project
             - ./php-fpm/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
+            - ./logs/fpm/:/var/log/
         networks:
             - code-network
         environment:
@@ -37,6 +41,7 @@ services:
         volumes:
             - ../:/opt/project
             - ./site.conf:/etc/nginx/conf.d/default.conf
+            - ./logs/nginx/:/var/log/nginx/
         networks:
             - code-network
 
