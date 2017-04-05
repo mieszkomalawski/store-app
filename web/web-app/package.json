@@ -1,19 +1,24 @@
 {
-  "name": "web-app",
-  "version": "0.1.0",
-  "private": true,
-  "homepage": "http://localhost:8080/web/web-app/build",
-  "dependencies": {
-    "react": "^15.4.2",
-    "react-dom": "^15.4.2"
-  },
-  "devDependencies": {
-    "react-scripts": "0.9.5"
-  },
+  "name": "store-app",
+  "version": "1.0.0",
+  "description": "test",
+  "main": "index.js",
+  "homepage": "http://localhost:8080/web/web-app",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "start": "webpack-dev-server --hot"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "babel": "^6.23.0",
+    "babel-core": "^6.24.0",
+    "babel-loader": "^6.4.1",
+    "babel-preset-es2015": "^6.24.0",
+    "babel-preset-react": "^6.23.0",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "serve": "^5.1.2",
+    "webpack": "^2.3.3",
+    "webpack-dev-server": "^2.4.2"
   }
 }
