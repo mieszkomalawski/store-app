@@ -1,3 +1,7 @@
+- zbudować builder aplikacji i wywalić duplikację między bootstrap a socket serverem
+- zbudować dispatcher
+- porównać gattlingiem albo innym meterem wydajność klasyczną i socketów
+
 - cache grinda wywalić do innego katalogu i konfig xdebug do resorces
 - wystawić logi z usług dockera do jakiegoś katalogu w resources
 1. uporządkować bootstrap

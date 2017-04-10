@@ -33,6 +33,8 @@ services:
         environment:
             XDEBUG_CONFIG: "remote_host=10.100.0.79"
             PHP_IDE_CONFIG: "serverName=Test"
+        ports:
+            - "8084:8084"
 
     web:
         image: nginx:latest
