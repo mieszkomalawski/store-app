@@ -1,0 +1,75 @@
+2017-04-10 16:40:27 startup archives unpack
+2017-04-10 16:40:27 install libicu52:amd64 <none> 52.1-8+deb8u4
+2017-04-10 16:40:27 status half-installed libicu52:amd64 52.1-8+deb8u4
+2017-04-10 16:40:28 status unpacked libicu52:amd64 52.1-8+deb8u4
+2017-04-10 16:40:28 status unpacked libicu52:amd64 52.1-8+deb8u4
+2017-04-10 16:40:28 install libpsl0:amd64 <none> 0.5.1-1
+2017-04-10 16:40:28 status half-installed libpsl0:amd64 0.5.1-1
+2017-04-10 16:40:28 status unpacked libpsl0:amd64 0.5.1-1
+2017-04-10 16:40:28 status unpacked libpsl0:amd64 0.5.1-1
+2017-04-10 16:40:29 install wget:amd64 <none> 1.16-1+deb8u1
+2017-04-10 16:40:29 status half-installed wget:amd64 1.16-1+deb8u1
+2017-04-10 16:40:29 status unpacked wget:amd64 1.16-1+deb8u1
+2017-04-10 16:40:29 status unpacked wget:amd64 1.16-1+deb8u1
+2017-04-10 16:40:30 startup packages configure
+2017-04-10 16:40:30 configure libicu52:amd64 52.1-8+deb8u4 <none>
+2017-04-10 16:40:30 status unpacked libicu52:amd64 52.1-8+deb8u4
+2017-04-10 16:40:30 status half-configured libicu52:amd64 52.1-8+deb8u4
+2017-04-10 16:40:30 status installed libicu52:amd64 52.1-8+deb8u4
+2017-04-10 16:40:30 status triggers-pending libc-bin:amd64 2.19-18+deb8u7
+2017-04-10 16:40:30 configure libpsl0:amd64 0.5.1-1 <none>
+2017-04-10 16:40:30 status unpacked libpsl0:amd64 0.5.1-1
+2017-04-10 16:40:30 status half-configured libpsl0:amd64 0.5.1-1
+2017-04-10 16:40:30 status installed libpsl0:amd64 0.5.1-1
+2017-04-10 16:40:30 configure wget:amd64 1.16-1+deb8u1 <none>
+2017-04-10 16:40:30 status unpacked wget:amd64 1.16-1+deb8u1
+2017-04-10 16:40:31 status unpacked wget:amd64 1.16-1+deb8u1
+2017-04-10 16:40:31 status half-configured wget:amd64 1.16-1+deb8u1
+2017-04-10 16:40:31 status installed wget:amd64 1.16-1+deb8u1
+2017-04-10 16:40:31 trigproc libc-bin:amd64 2.19-18+deb8u7 <none>
+2017-04-10 16:40:31 status half-configured libc-bin:amd64 2.19-18+deb8u7
+2017-04-10 16:40:31 status installed libc-bin:amd64 2.19-18+deb8u7
+2017-04-10 16:40:32 startup packages configure
+2017-04-10 16:42:18 startup archives unpack
+2017-04-10 16:42:18 install blackfire-agent:amd64 <none> 1.11.0
+2017-04-10 16:42:18 status half-installed blackfire-agent:amd64 1.11.0
+2017-04-10 16:42:18 status triggers-pending systemd:amd64 215-17+deb8u6
+2017-04-10 16:42:18 status unpacked blackfire-agent:amd64 1.11.0
+2017-04-10 16:42:18 status unpacked blackfire-agent:amd64 1.11.0
+2017-04-10 16:42:18 trigproc systemd:amd64 215-17+deb8u6 <none>
+2017-04-10 16:42:18 status half-configured systemd:amd64 215-17+deb8u6
+2017-04-10 16:42:18 status installed systemd:amd64 215-17+deb8u6
+2017-04-10 16:42:19 startup packages configure
+2017-04-10 16:42:19 configure blackfire-agent:amd64 1.11.0 <none>
+2017-04-10 16:42:19 status unpacked blackfire-agent:amd64 1.11.0
+2017-04-10 16:42:19 status unpacked blackfire-agent:amd64 1.11.0
+2017-04-10 16:42:19 status unpacked blackfire-agent:amd64 1.11.0
+2017-04-10 16:42:20 status unpacked blackfire-agent:amd64 1.11.0
+2017-04-10 16:42:20 status unpacked blackfire-agent:amd64 1.11.0
+2017-04-10 16:42:20 status unpacked blackfire-agent:amd64 1.11.0
+2017-04-10 16:42:20 status half-configured blackfire-agent:amd64 1.11.0
+2017-04-10 16:42:20 status installed blackfire-agent:amd64 1.11.0
+2017-04-10 16:42:21 startup packages configure
+2017-04-10 16:44:05 startup archives unpack
+2017-04-10 16:44:05 install blackfire-php:amd64 <none> 1.16.0
+2017-04-10 16:44:05 status half-installed blackfire-php:amd64 1.16.0
+2017-04-10 16:44:06 status unpacked blackfire-php:amd64 1.16.0
+2017-04-10 16:44:06 status unpacked blackfire-php:amd64 1.16.0
+2017-04-10 16:44:07 startup packages configure
+2017-04-10 16:44:07 configure blackfire-php:amd64 1.16.0 <none>
+2017-04-10 16:44:07 status unpacked blackfire-php:amd64 1.16.0
+2017-04-10 16:44:07 status half-configured blackfire-php:amd64 1.16.0
+2017-04-10 16:44:07 status installed blackfire-php:amd64 1.16.0
+2017-04-10 16:44:08 startup packages configure
+2017-04-10 16:56:21 startup archives unpack
+2017-04-10 16:56:21 install nano:amd64 <none> 2.2.6-3
+2017-04-10 16:56:21 status half-installed nano:amd64 2.2.6-3
+2017-04-10 16:56:21 status unpacked nano:amd64 2.2.6-3
+2017-04-10 16:56:21 status unpacked nano:amd64 2.2.6-3
+2017-04-10 16:56:22 startup packages configure
+2017-04-10 16:56:22 configure nano:amd64 2.2.6-3 <none>
+2017-04-10 16:56:22 status unpacked nano:amd64 2.2.6-3
+2017-04-10 16:56:22 status unpacked nano:amd64 2.2.6-3
+2017-04-10 16:56:22 status half-configured nano:amd64 2.2.6-3
+2017-04-10 16:56:22 status installed nano:amd64 2.2.6-3
+2017-04-10 16:56:23 startup packages configure

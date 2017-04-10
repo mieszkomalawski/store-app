@@ -11,3 +11,5 @@
 7. przejść z auto-increment na mechanizm ręcznego generowanie id encji
 9. jak odpalić testy integracyjne z poziomu dockera ? 
 zdokeryzować noda ? 
+
+przepiąc się na te middleware https://github.com/oscarotero/psr7-middlewares
