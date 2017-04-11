@@ -58,7 +58,8 @@ $method = $match['method'];
 
 $format = $match['format'];
 $middleware = $format == 'json' ? new JsonMiddleware() : new HtmlMiddleware();
-$response = $middleware->process($psrRequest, new class($controller, $method) implements DelegateInterface {
+$controllerMiddleware = new class($controller, $method) implements \Interop\Http\ServerMiddleware\MiddlewareInterface
+{
 
     private $controller;
     private $method;
@@ -76,14 +77,23 @@ $response = $middleware->process($psrRequest, new class($controller, $method) im
 
     /**
      * @param ServerRequestInterface $request
+     * @param DelegateInterface $delegate
      * @return ResponseInterface
      */
-    public function process(ServerRequestInterface $request) : ResponseInterface
+    public function process(ServerRequestInterface $request, DelegateInterface $delegate): ResponseInterface
     {
         $method = $this->method;
+
         return $this->controller->$method($request);
     }
-});
+};
+
+$dispatcher = new \StoreApp\Infrastructure\MiddlewareDispatcher([
+    $middleware,
+    $controllerMiddleware
+                                                                ]);
+
+$response = $dispatcher->process($psrRequest);
 
 $httpFoundationFactory = new HttpFoundationFactory();
 $symfonyResponse = $httpFoundationFactory->createResponse($response);

@@ -19,13 +19,27 @@ class App extends React.Component{
     }
 
     onSubmitHandler(event) {
+
+        event.preventDefault();
+        var rest = require('rest');
+        var mime = require('rest/interceptor/mime');
+        var entity = require('rest/interceptor/entity');
+        var endpointUrl = 'http://localhost:8080/product';
+
+        var client = rest
+            .chain(mime, { mime: 'application/json' })
+            .chain(entity);
+
+        client({ path: endpointUrl })
+            .then((response) => {console.log(response)});
+
         let tmpState = this.state;
         tmpState.products.push({
             name: this.state.form.name,
             price: this.state.form.price
         });
         this.setState(tmpState);
-        event.preventDefault();
+
     }
 
     onChangeNameHandler(event) {
