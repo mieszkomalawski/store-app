@@ -22,6 +22,9 @@ use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\Router;
 use \Symfony\Component\DependencyInjection\Loader\YamlFileLoader as DIYamlLoader;
 
+use Neomerx\Cors\Strategies\Settings;
+use Neomerx\Cors\Analyzer;
+
 require_once __DIR__ . "/../vendor/autoload.php";
 
 //services
@@ -42,10 +45,7 @@ $request = Request::createFromGlobals();
 $requestContext->fromRequest($request);
 
 $router = new Router(
-    new YamlFileLoader($locator),
-    'routes.yml',
-    ['cache_dir' => __DIR__.'/../cache'],
-    $requestContext
+    new YamlFileLoader($locator), 'routes.yml', ['cache_dir' => __DIR__ . '/../cache'], $requestContext
 );
 $match = $router->match($requestContext->getPathInfo());
 
@@ -88,10 +88,29 @@ $controllerMiddleware = new class($controller, $method) implements \Interop\Http
     }
 };
 
-$dispatcher = new \StoreApp\Infrastructure\MiddlewareDispatcher([
-    $middleware,
-    $controllerMiddleware
-                                                                ]);
+$settings = new Settings();
+$settings->setServerOrigin(
+    [
+        'scheme' => 'http',
+        'host' => 'localhost',
+        'port' => '8080'
+    ]
+);
+$settings->setRequestAllowedOrigins(
+    [
+        'http://localhost:8083' => '*'
+    ]
+);
+
+$analyzer = Analyzer::instance($settings);
+
+$dispatcher = new \StoreApp\Infrastructure\MiddlewareDispatcher(
+    [
+        new Middlewares\Cors($analyzer),
+        $middleware,
+        $controllerMiddleware
+    ]
+);
 
 $response = $dispatcher->process($psrRequest);
 
