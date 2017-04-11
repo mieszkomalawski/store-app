@@ -6,8 +6,10 @@ class App extends React.Component{
     constructor() {
         super();
         this.state = {
-            name: '',
-            price: 0,
+            form: {
+                name: '',
+                price: 0,
+            },
             products: []
         };
 
@@ -17,29 +19,26 @@ class App extends React.Component{
     }
 
     onSubmitHandler(event) {
-        alert(event.target.value);
+        let tmpState = this.state;
+        tmpState.products.push({
+            name: this.state.form.name,
+            price: this.state.form.price
+        });
+        this.setState(tmpState);
         event.preventDefault();
     }
 
     onChangeNameHandler(event) {
         let value = event.target.value;
         let tmpState = this.state;
-        tmpState.name = value;
-        tmpState.products.push({
-            name: value,
-            price: this.state.price
-        });
+        tmpState.form.name = value;
         this.setState(tmpState);
     }
 
     onChangePriceHandler(event) {
         let value = event.target.value;
         let tmpState = this.state;
-        tmpState.price = value;
-        tmpState.products.push({
-            price: value,
-            name: this.state.name
-        });
+        tmpState.form.price = value;
         this.setState(tmpState);
     }
 
@@ -47,8 +46,8 @@ class App extends React.Component{
         return (
             <div>
                 <AddProductForm
-                     name={this.state.name}
-                     price={this.state.price}
+                     name={this.state.form.name}
+                     price={this.state.form.price}
                     onSubmit={this.onSubmitHandler}
                     onChangeName={this.onChangeNameHandler}
                      onChangePrice={this.onChangePriceHandler}
@@ -78,8 +77,8 @@ class AddProductForm extends React.Component{
 
 class ProductList extends React.Component {
     render() {
-        const listItems = this.props.rows.map((product) =>
-            <ProductRow name={product.name} price={product.price} />
+        const listItems = this.props.rows.map((product, index) =>
+            <ProductRow key={index} name={product.name} price={product.price} />
         );
 
         return (
