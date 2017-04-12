@@ -1,0 +1,3 @@
+[2017-04-12 11:06:11] routing.DEBUG: Matching request: /product [] []
+[2017-04-12 11:06:11] routing.DEBUG: Matched {"service":"search_product_controller","method":"searchProduct","format":"json","_route":"search_product"} []
+h_product"} []

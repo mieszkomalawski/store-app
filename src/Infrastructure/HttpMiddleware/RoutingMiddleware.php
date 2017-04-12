@@ -1,10 +1,12 @@
 <?php
 namespace StoreApp\Infrastructure\HttpMiddleware;
 
+use GuzzleHttp\Psr7\Response;
 use Interop\Http\ServerMiddleware\DelegateInterface;
 use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Bridge\PsrHttpMessage\Factory\HttpFoundationFactory;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,15 +30,23 @@ class RoutingMiddleware implements MiddlewareInterface
     private $container;
 
     /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    /**
      * RoutingMiddleware constructor.
      * @param Router $router
      * @param Container $container
+     * @param LoggerInterface $logger
      */
-    public function __construct(Router $router, Container $container)
+    public function __construct(Router $router, Container $container, LoggerInterface $logger)
     {
         $this->router = $router;
         $this->container = $container;
+        $this->logger = $logger;
     }
+
 
     /**
      * @param ServerRequestInterface $request
@@ -45,8 +55,11 @@ class RoutingMiddleware implements MiddlewareInterface
      */
     public function process(ServerRequestInterface $request, DelegateInterface $delegate) : ResponseInterface
     {
+        $this->logger->debug('Matching request: ' . $request->getUri()->getPath());
 
         $match = $this->router->match($request->getUri()->getPath());
+
+        $this->logger->debug('Matched', $match);
 
         $controller = $this->container->get($match['service']);
 

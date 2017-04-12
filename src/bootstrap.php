@@ -7,11 +7,8 @@
  */
 
 use Doctrine\ORM\EntityManager;
-use Interop\Http\ServerMiddleware\DelegateInterface;
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
-use StoreApp\Infrastructure\HttpMiddleware\HtmlMiddleware;
-use StoreApp\Infrastructure\HttpMiddleware\JsonMiddleware;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
 use StoreApp\Infrastructure\HttpMiddleware\RoutingMiddleware;
 use Symfony\Bridge\PsrHttpMessage\Factory\HttpFoundationFactory;
 use Symfony\Component\Config\FileLocator;
@@ -69,12 +66,20 @@ $settings->setPreFlightCacheMaxAge(3600);
 
 $analyzer = Analyzer::instance($settings);
 
+//Create the logger
+$logger = new Logger('access');
+$logger->pushHandler(new StreamHandler(fopen('./../var/logs/access-log.txt', 'r+')));
+
+$loggerRouting = new Logger('routing');
+$loggerRouting->pushHandler(new StreamHandler(fopen('./../var/logs/routing-log.txt', 'r+')));
+
 $dispatcher = new \StoreApp\Infrastructure\MiddlewareDispatcher(
     [
+        new Middlewares\AccessLog($logger),
         new Middlewares\Cors($analyzer),
         new Middlewares\ContentType(),
         new Middlewares\JsonPayload(),
-        new RoutingMiddleware($router, $container)
+        new RoutingMiddleware($router, $container, $loggerRouting)
     ]
 );
 
