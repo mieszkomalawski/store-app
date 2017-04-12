@@ -6,13 +6,13 @@ import entity from 'rest/interceptor/entity';
 class App extends React.Component{
 
     componentDidMount() {
-        var endpointUrl = 'http://localhost:8080/product';
+        this.endpointUrl = 'http://localhost:8080/product';
 
-        var client = rest
+        this.client = rest
             .chain(mime, { mime: 'application/json' })
             .chain(entity);
 
-        client({ path: endpointUrl })
+        this.client({ path: this.endpointUrl })
             .then((response) => {
                 let tmpState = this.state;
                 tmpState.products = response.data;
@@ -39,13 +39,20 @@ class App extends React.Component{
 
         event.preventDefault();
 
-
-        let tmpState = this.state;
-        tmpState.products.push({
+        this.client({ path: this.endpointUrl, method: "POST", params: {
             name: this.state.form.name,
             price: this.state.form.price
-        });
-        this.setState(tmpState);
+        } })
+            .then((response) => {
+                console.log(response);
+            });
+
+        // let tmpState = this.state;
+        // tmpState.products.push({
+        //     name: this.state.form.name,
+        //     price: this.state.form.price
+        // });
+        // this.setState(tmpState);
 
     }
 
