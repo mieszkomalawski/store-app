@@ -2,6 +2,7 @@ import React from 'react';
 import rest from 'rest';
 import mime from 'rest/interceptor/mime';
 import entity from 'rest/interceptor/entity';
+import request from 'superagent';
 
 class App extends React.Component{
 
@@ -39,12 +40,12 @@ class App extends React.Component{
 
         event.preventDefault();
 
-        this.client({ path: this.endpointUrl, method: "POST", params: {
-            name: this.state.form.name,
-            price: this.state.form.price
-        } })
-            .then((response) => {
-                console.log(response);
+        request
+            .post(this.endpointUrl)
+            .send({ name: this.state.form.name, price: this.state.form.price })
+            .set('Accept', 'application/json')
+            .end(function(err, res){
+                console.log(res);
             });
 
         // let tmpState = this.state;

@@ -12,6 +12,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use StoreApp\Infrastructure\HttpMiddleware\HtmlMiddleware;
 use StoreApp\Infrastructure\HttpMiddleware\JsonMiddleware;
+use StoreApp\Infrastructure\HttpMiddleware\RoutingMiddleware;
 use Symfony\Bridge\PsrHttpMessage\Factory\HttpFoundationFactory;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -35,58 +36,20 @@ $loader->load('services.yml');
 
 /** @var EntityManager $entityManager */
 $entityManager = $container->get('entity_manager');
-
-$controller = $container->get('create_product_repository_db');
 //routing
 $locator = new FileLocator([__DIR__ . '/../config/routing']);
 
-$requestContext = new RequestContext();
 $request = Request::createFromGlobals();
+
+$requestContext = new RequestContext();
 $requestContext->fromRequest($request);
 
 $router = new Router(
     new YamlFileLoader($locator), 'routes.yml', ['cache_dir' => __DIR__ . '/../cache'], $requestContext
 );
-$match = $router->match($requestContext->getPathInfo());
 
 $psr7Factory = new \Symfony\Bridge\PsrHttpMessage\Factory\DiactorosFactory();
 $psrRequest = $psr7Factory->createRequest($request);
-
-$controller = $container->get($match['service']);
-
-$method = $match['method'];
-
-$format = $match['format'];
-$middleware = $format == 'json' ? new JsonMiddleware() : new HtmlMiddleware();
-$controllerMiddleware = new class($controller, $method) implements \Interop\Http\ServerMiddleware\MiddlewareInterface
-{
-
-    private $controller;
-    private $method;
-
-    /**
-     *  constructor.
-     * @param $controller
-     * @param $method
-     */
-    public function __construct($controller, $method)
-    {
-        $this->controller = $controller;
-        $this->method = $method;
-    }
-
-    /**
-     * @param ServerRequestInterface $request
-     * @param DelegateInterface $delegate
-     * @return ResponseInterface
-     */
-    public function process(ServerRequestInterface $request, DelegateInterface $delegate): ResponseInterface
-    {
-        $method = $this->method;
-
-        return $this->controller->$method($request);
-    }
-};
 
 $settings = new Settings();
 $settings->setServerOrigin(
@@ -101,14 +64,17 @@ $settings->setRequestAllowedOrigins(
         'http://localhost:8083' => '*'
     ]
 );
+$settings->setRequestAllowedMethods(['GET', 'POST', 'OPTIONS', 'DELETE', 'PUT']);
+$settings->setPreFlightCacheMaxAge(3600);
 
 $analyzer = Analyzer::instance($settings);
 
 $dispatcher = new \StoreApp\Infrastructure\MiddlewareDispatcher(
     [
         new Middlewares\Cors($analyzer),
-        $middleware,
-        $controllerMiddleware
+        new Middlewares\ContentType(),
+        new Middlewares\JsonPayload(),
+        new RoutingMiddleware($router, $container)
     ]
 );
 
