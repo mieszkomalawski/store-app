@@ -40,20 +40,23 @@ class App extends React.Component{
 
         event.preventDefault();
 
+        let self = this;
         request
             .post(this.endpointUrl)
             .send({ name: this.state.form.name, price: this.state.form.price })
             .set('Accept', 'application/json')
             .end(function(err, res){
-                console.log(res);
+                let product = res.body.data;
+                console.log(product);
+                let tmpState = self.state;
+                tmpState.products.push({
+                    name: product.name,
+                    price: product.price
+                });
+                self.setState(tmpState);
             });
 
-        // let tmpState = this.state;
-        // tmpState.products.push({
-        //     name: this.state.form.name,
-        //     price: this.state.form.price
-        // });
-        // this.setState(tmpState);
+
 
     }
 
