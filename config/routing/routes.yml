@@ -7,6 +7,15 @@ create_product:
         format: 'json'
       }
 
+update_product:
+    path:     /product/{od}
+    methods: [POST]
+    defaults: {
+        service: 'update_product_controller',
+        method: 'updateProduct',
+        format: 'json'
+      }
+
 search_product:
     path:     /product
     methods: [GET]

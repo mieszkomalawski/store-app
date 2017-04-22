@@ -61,4 +61,22 @@ class ProductRepositoryDB implements ProductRepository
         $this->entityManager->flush($product);
     }
 
+    /**
+     * @param int $id
+     * @return Product
+     */
+    public function getProductById(int $id): Product
+    {
+        return $this->ormRepo->find($id);
+    }
+
+    /**
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function persist()
+    {
+        $this->entityManager->flush();
+    }
+
+
 }

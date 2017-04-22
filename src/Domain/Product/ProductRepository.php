@@ -22,4 +22,12 @@ interface ProductRepository
      * @param Product $product
      */
     public function addProduct(Product $product): void;
+
+    /**
+     * @param int $id
+     * @return Product
+     */
+    public function getProductById(int $id): Product;
+
+    public function persist();
 }

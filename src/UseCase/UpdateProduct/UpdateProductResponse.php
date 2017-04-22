@@ -1,19 +1,18 @@
 <?php
-namespace StoreApp\Domain\Product;
+namespace StoreApp\UseCase\UpdateProduct;
 
 /**
- * Class Product
- * @package StoreApp\Domain\Product
+ * Class UpdateProductResponse
+ * @package StoreApp\UseCase\CreateProduct
  */
-final class Product
+class UpdateProductResponse
 {
-
     /**
      * @var int
      */
     private $id;
 
-    /*
+    /**
      * @var string
      */
     private $name;
@@ -24,22 +23,16 @@ final class Product
     private $price;
 
     /**
-     * Product constructor.
+     * CreateProductResponse constructor.
+     * @param int $id
      * @param string $name
      * @param float $price
      */
-    public function __construct(string $name, float $price)
+    public function __construct($id, $name, $price)
     {
+        $this->id = $id;
         $this->name = $name;
         $this->price = $price;
-    }
-
-    /**
-     * @return float
-     */
-    public function getPrice(): float
-    {
-        return $this->price;
     }
 
     /**
@@ -59,20 +52,10 @@ final class Product
     }
 
     /**
-     * @param string $name
+     * @return float
      */
-    public function changeName(string $name)
+    public function getPrice(): float
     {
-        $this->name = $name;
+        return $this->price;
     }
-
-    /**
-     * @param float $price
-     */
-    public function changePrice(float $price)
-    {
-        $this->price = $price;
-    }
-
-
 }

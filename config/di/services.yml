@@ -16,6 +16,10 @@ services:
         class: StoreApp\UseCase\CreateProduct\CreateProduct
         arguments: ['@create_product_repository_db']
 
+    update_product_use_case:
+            class: StoreApp\UseCase\UpdateProduct\UpdateProduct
+            arguments: ['@create_product_repository_db']
+
     search_product_use_case:
             class: StoreApp\UseCase\SearchProduct\SearchProduct
             arguments: ['@create_product_repository_db']
@@ -31,6 +35,12 @@ services:
         arguments: ['@create_product_transformer']
         calls:
              - [setCreateProduct, ['@create_product_use_case']]
+
+    update_product_controller:
+            class: StoreApp\Application\Api\UpdateProductController
+            arguments: ['@create_product_transformer']
+            calls:
+                 - [setUpdateProduct, ['@update_product_use_case']]
 
     search_product_controller:
             class: StoreApp\Application\Api\SearchProductController
