@@ -7,6 +7,8 @@
         <exec command="sleep 40" />
         <echo>Setting up db on container</echo>
         <exec command="docker exec -it resources_php_1 vendor/bin/doctrine orm:schema-tool:update --force" />
+        <echo>Starting node server at localhost:8083</echo>
+        <exec command="npm start" dir="./web/web-app" />
     </target>
     <target name="local">
         <echo>Setting up db </echo>

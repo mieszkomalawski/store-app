@@ -61,8 +61,16 @@ $settings->setRequestAllowedOrigins(
         'http://localhost:8083' => '*'
     ]
 );
-$settings->setRequestAllowedMethods(['GET', 'POST', 'OPTIONS', 'DELETE', 'PUT']);
+$settings->setRequestAllowedMethods(
+    ['GET' => true, 'POST' => true, 'OPTIONS' => true, 'DELETE' => true, 'PUT' => true]
+);
+$settings->setRequestAllowedHeaders(['Content-Type' => true]);
 $settings->setPreFlightCacheMaxAge(3600);
+$corsLogger = new Logger('cors-logger');
+$corsLogger->pushHandler(new StreamHandler(fopen('./../var/logs/cors-log.txt', 'r+')));
+$firePHPHandler = new \Monolog\Handler\FirePHPHandler();
+$corsLogger->pushHandler($firePHPHandler);
+$settings->setLogger($corsLogger);
 
 $analyzer = Analyzer::instance($settings);
 
@@ -72,6 +80,7 @@ $logger->pushHandler(new StreamHandler(fopen('./../var/logs/access-log.txt', 'r+
 
 $loggerRouting = new Logger('routing');
 $loggerRouting->pushHandler(new StreamHandler(fopen('./../var/logs/routing-log.txt', 'r+')));
+$loggerRouting->pushHandler($firePHPHandler);
 
 $dispatcher = new \StoreApp\Infrastructure\MiddlewareDispatcher(
     [

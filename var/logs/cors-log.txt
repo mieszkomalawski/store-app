@@ -1,0 +1,1 @@
+[2017-04-22 11:23:37] cors-logger.INFO: Request header is not allowed. Check config settings for Allowed Headers. {"header":"content-type"} []
